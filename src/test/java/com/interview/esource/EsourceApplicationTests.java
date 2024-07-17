@@ -3,6 +3,7 @@ package com.interview.esource;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.interview.esource.models.PrimeNumber;
 import com.interview.esource.services.NumberService;
 
 @SpringBootTest
@@ -38,7 +40,7 @@ public class EsourceApplicationTests {
 			() -> assertEquals(15, result.get(0).size()),
 			() -> assertEquals(15, result.get(1).size()),
 			() -> assertEquals(15, result.get(2).size()));
-		}
+	}
 
 	// Test non-duplicate numbers in list of lists
 	@Test
@@ -68,5 +70,13 @@ public class EsourceApplicationTests {
 		int negativeNumber = -47;
 		boolean isPrimeNumber = numberService.isPrime(negativeNumber);
 		assertFalse(isPrimeNumber);
+	} 
+
+	@Test
+	public void WHEN_largest_prime_number_THEN_prime_number_object_is_true() {
+		List<List<Integer>> listOfListOfNumbers = numberService.generateThreeListOfNumbers();
+		List<Integer> availableNumbers = numberService.findAvailableNumbers(listOfListOfNumbers);
+		PrimeNumber primeNumber = numberService.findLargestPrimeNumber(availableNumbers);
+		assertTrue(primeNumber.isPrimeNumberExists());
 	} 
 }
