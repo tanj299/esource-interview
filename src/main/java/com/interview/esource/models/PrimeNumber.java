@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class PrimeNumber implements Serializable {
-    int primeNumber;
-    boolean isPrimeNumberExist; 
+    Integer primeNumber;
+    boolean primeNumberExists; 
 }

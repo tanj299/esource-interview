@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.interview.esource.models.PrimeNumber;
 import com.interview.esource.services.NumberService;
 
 import lombok.AllArgsConstructor;
@@ -37,10 +38,10 @@ public class NumberController {
     }
 
     @GetMapping("/v1/esource/largest-prime-number")
-    public ResponseEntity<Integer> findLargestPrimeNumber() {
+    public ResponseEntity<PrimeNumber> findLargestPrimeNumber() {
         List<List<Integer>> listOfListOfNumbers = numberService.generateThreeListOfNumbers();
         List<Integer> availableNumbers = numberService.findAvailableNumbers(listOfListOfNumbers); 
-        Integer largestPrimeNumber = numberService.findLargestPrimeNumber(availableNumbers);
+        PrimeNumber largestPrimeNumber = numberService.findLargestPrimeNumber(availableNumbers);
         return ResponseEntity.ok(largestPrimeNumber);
     }
 }
