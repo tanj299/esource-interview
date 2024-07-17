@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d {%thread} %boldGreen{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOCALFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover-->
+            <fileNamePattern>C:\\Users\\Jayson Tan\\Desktop\\Personal\\Workspace\\logs\\esource-service.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <!-- keep 5 days of history capped at 1GB total size -->
+        <maxHistory>5</maxHistory>
+        <totalSizeCap>1GB</totalSizeCap>
+
+        <encoder>
+            <pattern>%d {%thread} %boldGreen([%X{correlationId}]) %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <springProfile name="local">
+        <logger name="com.esource" level="DEBUG"/>
+        <logger name="org.springframework.web" level="INFO"/>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="LOCALFILE"/>
+        </root>
+    </springProfile>
+</configuration>
